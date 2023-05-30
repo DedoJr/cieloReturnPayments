@@ -1,4 +1,4 @@
-package com.cieloReturnPayments.newarchitecture.components;
+package com.cieloreturnpayments.newarchitecture.components;
 
 import com.facebook.jni.HybridData;
 import com.facebook.proguard.annotations.DoNotStrip;

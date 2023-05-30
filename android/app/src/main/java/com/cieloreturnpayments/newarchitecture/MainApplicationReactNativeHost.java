@@ -1,4 +1,4 @@
-package com.cieloReturnPayments.newarchitecture;
+package com.cieloreturnpayments.newarchitecture;
 
 import android.app.Application;
 import androidx.annotation.NonNull;
@@ -19,9 +19,9 @@ import com.facebook.react.fabric.CoreComponentsRegistry;
 import com.facebook.react.fabric.EmptyReactNativeConfig;
 import com.facebook.react.fabric.FabricJSIModuleProvider;
 import com.facebook.react.uimanager.ViewManagerRegistry;
-import com.cieloReturnPayments.BuildConfig;
-import com.cieloReturnPayments.newarchitecture.components.MainComponentsRegistry;
-import com.cieloReturnPayments.newarchitecture.modules.MainApplicationTurboModuleManagerDelegate;
+import com.cieloreturnpayments.BuildConfig;
+import com.cieloreturnpayments.newarchitecture.components.MainComponentsRegistry;
+import com.cieloreturnpayments.newarchitecture.modules.MainApplicationTurboModuleManagerDelegate;
 import java.util.ArrayList;
 import java.util.List;
 
