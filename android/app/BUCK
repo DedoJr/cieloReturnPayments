@@ -35,12 +35,12 @@ android_library(
 
 android_build_config(
     name = "build_config",
-    package = "com.cieloReturnPayments",
+    package = "com.cieloreturnpayments",
 )
 
 android_resource(
     name = "res",
-    package = "com.cieloReturnPayments",
+    package = "com.cieloreturnpayments",
     res = "src/main/res",
 )
 
