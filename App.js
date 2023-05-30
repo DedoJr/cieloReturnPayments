@@ -6,26 +6,40 @@ import { onPaymentRequestWithCielo, onSearchCieloResult } from './services/Cielo
 
 const App: () => Node = () => {
   const [totalValue, onChangeTotalValue] = useState('');
-  const title = 'Captura do retorno dos pagamentos.'
-  const button = 'Confirmar o pagamento'
+  const [disabledButton, onDisabledButton] = useState(false);
+  const [returnText, onReturnText] = useState('');
+  const title = 'Captura do retorno dos pagamentos.';
+  const button = 'Confirmar o pagamento';
 
   const sendDataToCielo = () => {
     const tableNumber = 01;
     const formOfPayment = 'DEBITO_AVISTA';
+    onDisabledButton(true);
     onPaymentRequestWithCielo(tableNumber, parseInt(totalValue.replace(/[^\d]+/g,''), 10), formOfPayment)
         .then(() => getCieloResult()) 
-        .catch(err => console.log(`Erro após enviar dados para Cielo API: ${err}`))
+        .catch(err => {
+          onReturnText(`Erro após enviar dados para Cielo API: ${err}`);
+          onDisabledButton(false);
+        })
   }
 
   const getCieloResult = () => {
     onSearchCieloResult()
-        .then(data => data.reason ? console.log(data.reason) : console.log(`Resultado feito por Cielo: ${JSON.stringify(data)}`))
-        .catch(err => console.log(`Erro após buscar resultado: ${err}`))
+        .then(data => { 
+          onDisabledButton(false);
+          data.reason 
+            ? onReturnText(data.reason) 
+            : onReturnText(`Resultado feito por Cielo: ${JSON.stringify(data)}`);
+        })
+        .catch(err => { 
+          onDisabledButton(false);
+          onReturnText(`Erro após buscar resultado: ${err}`);
+        });
   }
   
   return (
     <View style={styles.view}>
-      <Text>
+      <Text style={styles.title}>
         {title}
       </Text>
       <TextInput 
@@ -34,7 +48,10 @@ const App: () => Node = () => {
         value={totalValue}
         placeholder="Digita apenas número"
         keyboardType="numeric" />
-      <Button onPress={sendDataToCielo} title={button} />
+      <Button onPress={sendDataToCielo} title={button} disabled={disabledButton} />
+      <Text style={styles.text}>
+        {returnText}
+      </Text>
     </View>
   );
 };
@@ -50,6 +67,15 @@ const styles = StyleSheet.create({
     margin: 12,
     borderWidth: 1,
     padding: 10,
+  },
+  title: {
+    textAlign: 'center',
+    fontSize: 24,
+  },
+  text: {
+    marginTop: 15,
+    textAlign: 'center',
+    fontSize: 14,
   },
 });
 
